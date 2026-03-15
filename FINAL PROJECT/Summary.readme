@@ -1,0 +1,181 @@
+# T20 Cricket Performance Prediction Using Machine Learning
+
+## Project Overview
+
+This project builds a full analytics pipeline to predict batting performance in T20 cricket using machine learning.
+
+Starting from raw match data, the project processes ball-by-ball cricket events, constructs statistical features such as batter-bowler matchups and bowler performance ratings, and trains a machine learning model to predict batting outcomes.
+
+The final model predicts the expected scoring bucket of a batter in an innings based on historical performance, opponent strength, and venue conditions.
+
+---
+
+## Motivation
+
+T20 cricket is highly dynamic and unpredictable. Teams increasingly rely on analytics to understand matchups and player performance.
+
+The goal of this project was to explore whether historical data such as:
+
+- batter strike rate
+- bowler performance
+- batter vs bowler matchups
+- venue scoring conditions
+
+can be used to predict batting outcomes.
+
+---
+
+## Data Source
+
+Raw data was obtained from the **Cricsheet open cricket dataset**, which provides ball-by-ball match records in JSON format.
+
+Dataset coverage:
+
+- 5600+ T20 matches
+- ~1 million deliveries
+- international and league matches
+
+Raw match data was processed and transformed into structured datasets using Python.
+
+---
+
+## Data Pipeline
+
+The project includes a complete data engineering pipeline:
+
+This pipeline converts raw cricket match data into machine-learning-ready features.
+
+---
+
+## Feature Engineering
+
+The following features were engineered for the prediction model.
+
+### Batter Skill
+- Career strike rate
+- Career average runs
+
+### Bowler Strength
+A bowler rating was computed using:
+
+- wicket rate
+- economy rate
+- dot ball rate
+- experience weighting
+
+### Batter vs Bowler Matchups
+- historical strike rate vs bowler
+- dismissal rate vs bowler
+
+### Match Context
+- venue scoring average
+
+These features capture both player ability and match context.
+
+---
+
+## Prediction Task
+
+The model predicts a **run scoring bucket** for a batter's innings.
+
+Run buckets:
+
+| Bucket | Runs |
+|------|------|
+0 | 0–9 |
+1 | 10–24 |
+2 | 25–39 |
+3 | 40–59 |
+4 | 60+ |
+
+This converts a noisy regression problem into a more stable classification task.
+
+---
+
+## Model
+
+Algorithm used:
+
+Random Forest Classifier
+
+Reasons for choosing this model:
+
+- handles nonlinear relationships
+- robust to noisy sports data
+- interpretable feature importance
+
+Training strategy:
+
+- season-based train/test split
+- earlier seasons used for training
+- later seasons used for testing
+
+This avoids data leakage from future matches.
+
+---
+
+## Model Performance
+
+Test accuracy:
+
+52%
+
+Baseline random accuracy:
+
+20%
+
+The model performs over **2.5× better than random guessing**.
+
+Feature importance analysis showed that:
+
+- batter strike rate was the strongest predictor
+- career batting average was the second most important factor
+- venue scoring conditions also influenced outcomes
+
+---
+
+## Key Insights
+
+The model suggests that batting outcomes in T20 cricket are primarily driven by:
+
+1. Batter scoring ability
+2. Venue scoring conditions
+3. Matchup statistics
+4. Opponent bowling strength
+
+While matchup features contribute meaningful adjustments, batter skill remains the strongest predictor.
+
+---
+
+## Technologies Used
+
+Python
+
+Libraries:
+
+- pandas
+- numpy
+- scikit-learn
+- matplotlib
+
+---
+
+## Project Structure
+
+---
+
+## Future Improvements
+
+Possible extensions of this project include:
+
+- incorporating recent form (last 5 innings)
+- modeling bowling attack strength per match
+- including batting order position
+- testing gradient boosting models (XGBoost / LightGBM)
+
+---
+
+## Author
+
+Amit Sanjeev  
+MS Business Analytics
